@@ -1,6 +1,6 @@
 #Program to get the %LOC Vs %Bugs for a dataset
 #Reading the data csv file
-dataset = read.csv("xalan-2.4.csv", header = TRUE)
+dataset = read.csv(file=choose.files(), header = TRUE)
 
 #Adding a new column respective to number of bugs
 bugs = rep(0,nrow(dataset))
@@ -16,13 +16,14 @@ number_modules = nrow(data)
 #function to get %bugs 
 get_perc_bugs <- function(data){
   i = 10
+  locvsbug = {0}
   while(i<=100)
   {
     loc_percent = round(i/100*number_modules)
     #get number of bugs for this percent of modules
     bugs = length(which(data[1:loc_percent,"bugs"] == 1))
     perc_bugs = bugs/number_bugs*100
-    locvsbug[i/10] <- perc_bugs
+    locvsbug[i/10] = perc_bugs
     i=i+10
   }
   return(locvsbug)
@@ -42,3 +43,5 @@ lines(lvb_des, col=1, pch=21, type="o")
 data_godcurve = data[with(data, order(-bugs)),]
 lvb = get_perc_bugs(data_godcurve)
 lines(lvb, col=4, pch=21, type="o")
+
+#Prediction Line
