@@ -1,43 +1,40 @@
 
-library(randomForest) 
+library(rpart) 
 set.seed(123)
+subsets <- 5
+k <- 10
+trees <- 50
+mvars <- 4
 dataset <- read.csv(file=choose.files(), na.strings=c(".", "NA", "", "?"), strip.white=TRUE, encoding="UTF-8")
 
-########################### Pre-processing ###########################
-
-dataset <- dataset[,-c(1,2,3)]
-bugs <- rep(0,nrow(dataset))
-bugs[which(dataset$bug > 0)] <- 1
-dataset <- dataset[,-ncol(dataset)]
-dataset <- cbind(dataset,bugs)
-
 ############################# Partition ##############################
-subset.size <- abs(0.20*nrow(dataset))
-subset1 <- sample(1:nrow(dataset), subset.size, replace=F)
-remaining <- setdiff(1:nrow(dataset),subset1)
-#subset2 <- dataset[sample(remaining, subset.size, replace=F)]
-#remaining <- setdiff(remaining, subset2)
-#subset3 <- dataset[sample(remaining, subset.size, replace=F)]
-#remaining <- setdiff(remaining, subset3)
-#subset4 <- dataset[sample(remaining, subset.size, replace=F)]
-#remaining <- setdiff(remaining, subset4)
-#subset5 <- dataset[remaining]
 
-################# End of Pre-processing and partition ################
+dataset.class0 <- which(dataset$bug == 0)
+dataset.class1 <- which(dataset$bug == 1)
+perc = 1/subsets
+bestmodel <- ""
+premisclassification <- 100
 
-precision <- rep(0,5)
-recall <- rep(0,5)
-fmeasure <- rep(0,5)
+for (subset in 1:(subsets)) {
+  subset.class0.start <- round((subset-1)*perc*length(dataset.class0)+1)
+  subset.class0.end <- round(subset*perc*length(dataset.class0))
+  subset.class0 <- dataset.class0[subset.class0.start:subset.class0.end]
+  
+  subset.class1.start <- (subset-1)*perc*length(dataset.class1)+1
+  subset.class1.end <- (subset)*perc*length(dataset.class1)
+  subset.class1 <- dataset.class1[subset.class1.start:subset.class1.end]
+  
+  subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train)
+  
+  subset.train.data <- dataset[subset.train,]
+  subset.test.data <- dataset[subset.test,]
 
-subset1.train <- sample(subset1, abs(0.90*length(subset1)), replace=F)
-subset1.test <- setdiff(subset1, subset1.train)
-
-CrossValidation <- function(data, k){
-  n <- nrow(data)
-  c.error <- 0
-  data.train <- sample(1:nrow(data), abs(0.9*nrow(data)), replace=F)
-  data.test <- setdiff(1:nrow(data), data.train)
-  fold <- rep(0,length(data.train))
+  n <- nrow(subset.train.data)
+  fold <- rep(0,n)
   c <- 0
   for (i in 1:(n %/% k)) {
     for (j in 1:k) {
@@ -47,39 +44,44 @@ CrossValidation <- function(data, k){
   }
   fold <- fold[sample(1:length(fold), length(fold), replace=F)]
   
+  # Perform k-fold Cross Validation
+  
   m.error <- 100
-  m.tree <- 0
+  m.tree <- ""
   
   for(i in 1:k) {
-    test.index = which(fold == i)
-    train.index = setdiff(data.train,test.index)
-       
-    tree = rpart(as.factor(data[train.index,ncol(data)]) ~., data[train.index,], method="class", parms=list(split='gini'), control=rpart.control(minsplit=1,minbucket=1,cp=0))
-    pred <- predict(tree, data[test.index,], type="class")
-    cm <- confusion(pred, factor(data[test.index,ncol(data)], levels=c(0,1)))
-    cm <- table(observed=data[test.index,ncol(data)], predicted = pred)
+    cv.index = which(fold == i)
+    train.index = setdiff(1:length(fold),cv.index)
+    
+    tree = rpart(bug ~., subset.train.data[train.index,], method="class", parms=list(split='gini'), control=rpart.control(minsplit=20,minbucket=10,cp=0))
+    pred <- predict(tree, subset.train.data[cv.index,], type="class")
+    cm <- confusion(pred, factor(subset.train.data[cv.index,"bug"], levels=c(0,1)))
     c.error <- as.numeric(as.character(attr(cm, "error")))
- 
+    
     if(c.error < m.error) {
       m.error <- c.error
       m.tree <- tree
     }
   }
-  m.tree
+  
+  # Test on the best model returned by CV
+  
+  pred <- predict(m.tree, subset.test.data, type="class")
+  cm <- confusion(pred, factor(subset.test.data$bug, levels=c(0,1)))
+  misclassification <- as.numeric(as.character(attr(cm, "error")))
+  print(misclassification)
+  if(misclassification < premisclassification) {
+    bestmodel <- m.tree
+    premisclassification <- misclassification
+  }
 }
 
-# Store errors and trees for all 5 subsets
-error <- rep(0,5)
-dtree <- rep(0,5)
+bestmodel
+################# End of Pre-processing and partition ################
 
-# For subset1
-data <- dataset[subset1.train,]
-CrossValidation(data, 10)
-pred <- predict(m.tree, dataset[subset1.test,], type="class")
-cm <- confusion(pred, factor(dataset[subset1.test,ncol(dataset)], levels=c(0,1)))
-cm <- table(observed=dataset[subset1.test,ncol(dataset)], predicted = pred)
-error[1] <- as.numeric(as.character(attr(cm, "error")))
-
-
-
-
+testdata <- read.csv(file=choose.files(), na.strings=c(".", "NA", "", "?"), strip.white=TRUE, encoding="UTF-8")
+testdata <- testdata[,-c(1,2,3)]
+pred <- predict(bestmodel, testdata, type="class")
+cm <- confusion(pred, factor(testdata$bug, levels=c(0,1)))
+writedata <- cbind(testdata, pred)
+write.csv(writedata, file="PredictedData/ant-1.7.csv", row.names=F)
