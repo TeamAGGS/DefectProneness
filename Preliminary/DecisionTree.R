@@ -3,8 +3,9 @@ library(rpart)
 set.seed(123)
 subsets <- 5
 k <- 10
-dataset <- read.csv(file=choose.files(), na.strings=c(".", "NA", "", "?"), strip.white=TRUE, encoding="UTF-8")
-
+file=file.choose()
+dataset <- read.csv(file, na.strings=c(".", "NA", "", "?"), strip.white=TRUE, encoding="UTF-8")
+file_name <- basename(file)
 ############################# Partition ##############################
 
 dataset.class0 <- which(dataset$bug == 0)
@@ -51,7 +52,7 @@ for (subset in 1:(subsets)) {
     cv.index = which(fold == i)
     train.index = setdiff(1:length(fold),cv.index)
     
-    tree = rpart(bug ~., subset.train.data[train.index,], method="class", parms=list(split='gini'), control=rpart.control(minsplit=20,minbucket=7,cp=0))
+    tree = rpart(bug ~., subset.train.data[train.index,], method="class", parms=list(split='gini'), control=rpart.control(minsplit=10,minbucket=3,cp=0))
     pred <- predict(tree, subset.train.data[cv.index,], type="class")
     cm <- confusion(pred, factor(subset.train.data[cv.index,"bug"], levels=c(0,1)))
     c.error <- as.numeric(as.character(attr(cm, "error")))
@@ -77,10 +78,12 @@ for (subset in 1:(subsets)) {
 bestmodel
 ################# End of Pre-processing and partition ################
 
-testdata <- read.csv(file=choose.files(), na.strings=c(".", "NA", "", "?"), strip.white=TRUE, encoding="UTF-8")
+testdata <- read.csv(file=paste("data/",file_name, sep=""), na.strings=c(".", "NA", "", "?"), strip.white=TRUE, encoding="UTF-8")
 testdata <- testdata[,-c(1,2,3)]
 testdata$bug <- factor(ifelse(testdata$bug > 0, 1, 0))
 pred <- predict(bestmodel, testdata, type="class")
 cm <- confusion(pred, factor(testdata$bug, levels=c(0,1)))
+cm
+plot(bestmodel)
 writedata <- cbind(testdata, pred)
-write.csv(writedata, file="PredictedData/ant-1.7.csv", row.names=F)
+write.csv(writedata, file=paste("PredictedData/",file_name, sep=""), row.names=F)
