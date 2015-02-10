@@ -3,8 +3,6 @@ library(rpart)
 set.seed(123)
 subsets <- 5
 k <- 10
-trees <- 50
-mvars <- 4
 dataset <- read.csv(file=choose.files(), na.strings=c(".", "NA", "", "?"), strip.white=TRUE, encoding="UTF-8")
 
 ############################# Partition ##############################
@@ -53,7 +51,7 @@ for (subset in 1:(subsets)) {
     cv.index = which(fold == i)
     train.index = setdiff(1:length(fold),cv.index)
     
-    tree = rpart(bug ~., subset.train.data[train.index,], method="class", parms=list(split='gini'), control=rpart.control(minsplit=20,minbucket=10,cp=0))
+    tree = rpart(bug ~., subset.train.data[train.index,], method="class", parms=list(split='gini'), control=rpart.control(minsplit=20,minbucket=7,cp=0))
     pred <- predict(tree, subset.train.data[cv.index,], type="class")
     cm <- confusion(pred, factor(subset.train.data[cv.index,"bug"], levels=c(0,1)))
     c.error <- as.numeric(as.character(attr(cm, "error")))
@@ -81,6 +79,7 @@ bestmodel
 
 testdata <- read.csv(file=choose.files(), na.strings=c(".", "NA", "", "?"), strip.white=TRUE, encoding="UTF-8")
 testdata <- testdata[,-c(1,2,3)]
+testdata$bug <- factor(ifelse(testdata$bug > 0, 1, 0))
 pred <- predict(bestmodel, testdata, type="class")
 cm <- confusion(pred, factor(testdata$bug, levels=c(0,1)))
 writedata <- cbind(testdata, pred)
