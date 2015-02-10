@@ -32,7 +32,6 @@ fmeasure <- rep(0,5)
 subset1.train <- sample(subset1, abs(0.90*length(subset1)), replace=F)
 subset1.test <- setdiff(subset1, subset1.train)
 
-
 CrossValidation <- function(data, k){
   n <- nrow(data)
   c.error <- 0
