@@ -18,15 +18,13 @@ get_perc_bugs <- function(data, prediction){
     #get number of bugs for this percent of modules
     if(prediction == 'False'){
       bugs = length(which(data[1:loc_percent,"bug"] == 1))
-      perc_bugs = bugs/number_bugs*100
-      locvsbug[i/10] = perc_bugs
     }    
     else
     {
-      predicted_bugs = length(which(data[1:loc_percent,"pred"] == 1))
-      perc_pred_bugs = predicted_bugs/number_predicted_bugs*100
-      locvsbug[i/10] = perc_pred_bugs
+      bugs = length(which(data[1:loc_percent,"pred"] == 1))
     }
+    perc_bugs = bugs/number_bugs*100
+    locvsbug[i/10] = perc_bugs
     i=i+10
   }
   return(locvsbug)
@@ -51,4 +49,3 @@ lines(lvb, col=4, pch=21, type="o")
 asc_loc_data = data[with(data, order(loc)),]
 pred_asc = get_perc_bugs(asc_loc_data, 'True')
 lines(pred_asc, col=3, pch=21, type="o")
-
