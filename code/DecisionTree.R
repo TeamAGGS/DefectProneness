@@ -81,17 +81,8 @@ for (subset in 1:(subsets)) {
 }
 
 bestmodel
+modelfile=paste(paste("../models/",file_name, sep=""), ".rda", sep="")
+modelfile
+save(bestmodel, file=modelfile)
 ################# End of Pre-processing and partition ################
 
-setwd("../") # needed because DecisionTree.R is in the code folder, 
-             # so .bat file searches for the path ../code/data/<filename>.csv which does not exist
-testdata <- read.csv(file=paste("data/",file_name, sep=""), na.strings=c(".", "NA", "", "?"), strip.white=TRUE, encoding="UTF-8")
-testdata <- testdata[,-c(1,2,3)]
-testdata$bug <- factor(ifelse(testdata$bug > 0, 1, 0))
-pred <- predict(bestmodel, testdata, type="class")
-cm <- confusion(pred, factor(testdata$bug, levels=c(0,1)))
-cm
-#plot(bestmodel)
-writedata <- cbind(testdata, pred)
-writedata
-write.csv(writedata, file=paste("PredictedData/",file_name, sep=""), row.names=F)
