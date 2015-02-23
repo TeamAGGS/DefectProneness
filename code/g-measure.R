@@ -29,7 +29,7 @@ for (file in files) {
   gmeasure <- (2*pd*(100-pf))/(pd+(100-pf))
   #print(gmeasure)
   g <- unlist(strsplit(file, "/"))
-  filename <- g[2]
+  filename <- g[3]
   line <- ""
   line <- paste(filename, " | ", sep="")
   line <- paste(line, gmeasure, sep="")
