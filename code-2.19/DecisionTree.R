@@ -1,4 +1,3 @@
-
 library(rpart) 
 set.seed(123)
 subsets <- 5
@@ -31,7 +30,7 @@ for (subset in 1:(subsets)) {
   
   subset.train.data <- dataset[subset.train,]
   subset.test.data <- dataset[subset.test,]
-
+  
   n <- nrow(subset.train.data)
   fold <- rep(0,n)
   c <- 0
