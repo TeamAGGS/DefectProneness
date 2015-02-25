@@ -23,7 +23,7 @@ for (i in 1:(n %/% k)) {
 fold <- fold[sample(1:length(fold), length(fold), replace=F)]
 
 ############# Perform k-fold Cross Validation ######################
-m.error <- 100
+error <- 100
 bestmodel <- ""
 
 for(i in 1:k) {
@@ -35,8 +35,8 @@ for(i in 1:k) {
   cm <- confusion(pred, factor(dataset[cv.index,"bug"], levels=c(0,1)))
   c.error <- as.numeric(as.character(attr(cm, "error")))
   
-  if(c.error < m.error) {
-    m.error <- c.error
+  if(c.error < error) {
+    error <- c.error
     bestmodel <- tree
   }
 }
@@ -44,5 +44,8 @@ for(i in 1:k) {
 bestmodel
 ############# End of k-fold Cross Validation ######################
 
+# save Model
 modelfile=paste(paste("../models/",file_name, sep=""), ".rda", sep="")
 save(bestmodel, file=modelfile)
+
+error
