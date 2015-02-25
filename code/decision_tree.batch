@@ -9,120 +9,77 @@ Loaded mda 0.4-4
 
 > 
 > set.seed(123)
-> subsets <- 1 #Using entire dataset
-> k <- 10
+> k <- 10 # For 10-fold cross-validation
 > file=file.choose()
 > dataset <- read.csv(file, na.strings=c(".", "NA", "", "?"), strip.white=TRUE, encoding="UTF-8")
 > file_name <- basename(file)
 > ############################# Partition ##############################
-> 
-> dataset.class0 <- which(dataset$bug == 0)
-> dataset.class1 <- which(dataset$bug == 1)
-> perc = 1/subsets
-> bestmodel <- ""
-> premisclassification <- 100
-> 
-> for (subset in 1:(subsets)) {
-+   subset.class0.start <- round((subset-1)*perc*length(dataset.class0)+1)
-+   subset.class0.end <- round(subset*perc*length(dataset.class0))
-+   subset.class0 <- dataset.class0[subset.class0.start:subset.class0.end]
-+   
-+   subset.class1.start <- (subset-1)*perc*length(dataset.class1)+1
-+   subset.class1.end <- (subset)*perc*length(dataset.class1)
-+   subset.class1 <- dataset.class1[subset.class1.start:subset.class1.end]
-+   
-+   subset.total <- c(subset.class0, subset.class1)
-+   subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
-+   subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
-+   subset.train <- c(subset.train.class0, subset.train.class1)
-+   subset.test <- setdiff(subset.total, subset.train)
-+   
-+   subset.train.data <- dataset[subset.train,]
-+   subset.test.data <- dataset[subset.test,]
-+   
-+   n <- nrow(subset.train.data)
-+   fold <- rep(0,n)
-+   c <- 0
-+   for (i in 1:(n %/% k)) {
+>  
+>   n <- nrow(dataset)
+>   fold <- rep(0,n)
+>   c <- 0
+>   for (i in 1:(n %/% k)) {
 +     for (j in 1:k) {
 +       fold[c] <- j
 +       c <- c + 1
 +     }
 +   }
-+   fold <- fold[sample(1:length(fold), length(fold), replace=F)]
-+   
-+   # Perform k-fold Cross Validation
-+   
-+   m.error <- 100
-+   m.tree <- ""
-+   
-+   for(i in 1:k) {
+>   fold <- fold[sample(1:length(fold), length(fold), replace=F)]
+>   
+>   # Perform k-fold Cross Validation  
+>   m.error <- 100
+>   bestmodel <- ""
+>   
+>   for(i in 1:k) {
 +     cv.index = which(fold == i)
 +     train.index = setdiff(1:length(fold),cv.index)
 +     
-+     tree = rpart(bug ~., subset.train.data[train.index,], method="class", parms=list(split=args[1]), control=rpart.control(minsplit=args[2],minbucket=args[3],cp=0))
-+     pred <- predict(tree, subset.train.data[cv.index,], type="class")
-+     cm <- confusion(pred, factor(subset.train.data[cv.index,"bug"], levels=c(0,1)))
++     tree = rpart(bug ~., dataset[train.index,], method="class", parms=list(split=args[1]), control=rpart.control(minsplit=args[2],minbucket=args[3],cp=0))
++     pred <- predict(tree, dataset[cv.index,], type="class")
++     cm <- confusion(pred, factor(dataset[cv.index,"bug"], levels=c(0,1)))
 +     c.error <- as.numeric(as.character(attr(cm, "error")))
 +     
 +     if(c.error < m.error) {
 +       m.error <- c.error
-+       m.tree <- tree
++       bestmodel <- tree
 +     }
 +   }
-+   
-+   # Test on the best model returned by CV
-+   
-+   pred <- predict(m.tree, subset.test.data, type="class")
-+   cm <- confusion(pred, factor(subset.test.data$bug, levels=c(0,1)))
-+   misclassification <- as.numeric(as.character(attr(cm, "error")))
-+   print(misclassification)
-+   if(misclassification < premisclassification) {
-+     bestmodel <- m.tree
-+     premisclassification <- misclassification
-+   }
-+ }
-[1] 0.147651
 > 
 > bestmodel
-n= 1199 
+n= 1358 
 
 node), split, n, loss, yval, (yprob)
       * denotes terminal node
 
-  1) root 1199 595 0 (0.50375313 0.49624687)  
-    2) rfc< 26.02478 530 125 0 (0.76415094 0.23584906)  
-      4) ce< 1.143894 184  12 0 (0.93478261 0.06521739) *
-      5) ce>=1.143894 346 113 0 (0.67341040 0.32658960)  
-       10) ic>=0.9893001 81   6 0 (0.92592593 0.07407407) *
-       11) ic< 0.9893001 265 107 0 (0.59622642 0.40377358)  
-         22) moa>=0.976662 40   5 0 (0.87500000 0.12500000) *
-         23) moa< 0.976662 225 102 0 (0.54666667 0.45333333)  
-           46) cam>=0.4920911 185  74 0 (0.60000000 0.40000000)  
-             92) avg_cc< 0.6694507 78  20 0 (0.74358974 0.25641026) *
-             93) avg_cc>=0.6694507 107  53 1 (0.49532710 0.50467290)  
-              186) avg_cc>=0.9855164 37   8 0 (0.78378378 0.21621622) *
-              187) avg_cc< 0.9855164 70  24 1 (0.34285714 0.65714286)  
-                374) cam< 0.5363965 30   8 0 (0.73333333 0.26666667) *
-                375) cam>=0.5363965 40   2 1 (0.05000000 0.95000000) *
-           47) cam< 0.4920911 40  12 1 (0.30000000 0.70000000) *
-    3) rfc>=26.02478 669 199 1 (0.29745889 0.70254111)  
-      6) cbo< 6.092427 100  33 0 (0.67000000 0.33000000) *
-      7) cbo>=6.092427 569 132 1 (0.23198594 0.76801406)  
-       14) lcom< 4.16156 65  32 0 (0.50769231 0.49230769)  
-         28) cbo>=9.927701 32   8 0 (0.75000000 0.25000000) *
-         29) cbo< 9.927701 33   9 1 (0.27272727 0.72727273) *
-       15) lcom>=4.16156 504  99 1 (0.19642857 0.80357143)  
-         30) rfc< 57.11022 187  56 1 (0.29946524 0.70053476)  
-           60) lcom>=57.47566 60  30 0 (0.50000000 0.50000000)  
-            120) lcom3< 0.8337122 30  11 0 (0.63333333 0.36666667) *
-            121) lcom3>=0.8337122 30  11 1 (0.36666667 0.63333333) *
-           61) lcom< 57.47566 127  26 1 (0.20472441 0.79527559)  
-            122) max_cc< 4.01673 60  22 1 (0.36666667 0.63333333)  
-              244) ce< 8.162269 30  14 0 (0.53333333 0.46666667) *
-              245) ce>=8.162269 30   6 1 (0.20000000 0.80000000) *
-            123) max_cc>=4.01673 67   4 1 (0.05970149 0.94029851) *
-         31) rfc>=57.11022 317  43 1 (0.13564669 0.86435331) *
+  1) root 1358 661 0 (0.51325479 0.48674521)  
+    2) rfc< 45.06106 849 267 0 (0.68551237 0.31448763)  
+      4) ce< 1.061254 226  17 0 (0.92477876 0.07522124) *
+      5) ce>=1.061254 623 250 0 (0.59871589 0.40128411)  
+       10) lcom< 0.01463686 173  37 0 (0.78612717 0.21387283)  
+         20) npm< 5.194931 112  14 0 (0.87500000 0.12500000) *
+         21) npm>=5.194931 61  23 0 (0.62295082 0.37704918)  
+           42) cbo>=8.571526 30   6 0 (0.80000000 0.20000000) *
+           43) cbo< 8.571526 31  14 1 (0.45161290 0.54838710) *
+       11) lcom>=0.01463686 450 213 0 (0.52666667 0.47333333)  
+         22) moa>=0.9832697 92  22 0 (0.76086957 0.23913043) *
+         23) moa< 0.9832697 358 167 1 (0.46648045 0.53351955)  
+           46) moa< 0.001031053 321 154 0 (0.52024922 0.47975078)  
+             92) dit>=1.5 216  84 0 (0.61111111 0.38888889)  
+              184) cbo>=4.951786 156  49 0 (0.68589744 0.31410256)  
+                368) lcom< 4.475731 96  20 0 (0.79166667 0.20833333) *
+                369) lcom>=4.475731 60  29 0 (0.51666667 0.48333333)  
+                  738) lcom>=14.14753 30   8 0 (0.73333333 0.26666667) *
+                  739) lcom< 14.14753 30   9 1 (0.30000000 0.70000000) *
+              185) cbo< 4.951786 60  25 1 (0.41666667 0.58333333) *
+             93) dit< 1.5 105  35 1 (0.33333333 0.66666667) *
+           47) moa>=0.001031053 37   0 1 (0.00000000 1.00000000) *
+    3) rfc>=45.06106 509 115 1 (0.22593320 0.77406680)  
+      6) dam< 0.6859609 79  37 1 (0.46835443 0.53164557)  
+       12) cbo>=10.96938 49  21 0 (0.57142857 0.42857143) *
+       13) cbo< 10.96938 30   9 1 (0.30000000 0.70000000) *
+      7) dam>=0.6859609 430  78 1 (0.18139535 0.81860465)  
+       14) cbo< 7.186921 30  14 0 (0.53333333 0.46666667) *
+       15) cbo>=7.186921 400  62 1 (0.15500000 0.84500000) *
 > modelfile=paste(paste("../models/",file_name, sep=""), ".rda", sep="")
 > modelfile
 [1] "../models/ant-training.csv.rda"

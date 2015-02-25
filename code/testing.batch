@@ -22,10 +22,10 @@ Loaded mda 0.4-4
 > cm
          true
 predicted   0   1
-        0 449  65
-        1 130 101
+        0 386  65
+        1 193 101
 attr(,"error")
-[1] 0.261745
+[1] 0.3463087
 > writedata <- cbind(testdata, pred)
 > write.csv(writedata, file=result.filename, row.names=F)
 > 
