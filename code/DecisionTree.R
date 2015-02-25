@@ -6,7 +6,7 @@ library(rpart)
 library(mda)
 
 set.seed(123)
-subsets <- 5 #TODO remove subsets
+subsets <- 1 #Using entire dataset
 k <- 10
 file=file.choose()
 dataset <- read.csv(file, na.strings=c(".", "NA", "", "?"), strip.white=TRUE, encoding="UTF-8")

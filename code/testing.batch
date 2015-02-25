@@ -3,8 +3,8 @@ Loaded mda 0.4-4
 
 > args <- commandArgs(trailingOnly = TRUE)
 > print(args)
-[1] "..\\models\\camel-training.csv.rda" "..\\data\\camel-1.6.csv"           
-[3] "..\\PredictedData\\camel-1.6.csv"  
+[1] "..\\models\\ant-training.csv.rda" "..\\data\\ant-1.7.csv"           
+[3] "..\\PredictedData\\ant-1.7.csv"  
 > 
 > # Get all the arguments
 > model.filename <- args[1]
@@ -22,10 +22,10 @@ Loaded mda 0.4-4
 > cm
          true
 predicted   0   1
-        0 544 117
-        1 233  71
+        0 449  65
+        1 130 101
 attr(,"error")
-[1] 0.3626943
+[1] 0.261745
 > writedata <- cbind(testdata, pred)
 > write.csv(writedata, file=result.filename, row.names=F)
 > 
