@@ -6,7 +6,7 @@ args <- commandArgs(trailingOnly = TRUE)
 print(args)
 
 set.seed(123)
-k <- 10 # For 10-fold cross-validation
+k <- 2 # For 10-fold cross-validation
 file=file.choose()
 dataset <- read.csv(file, na.strings=c(".", "NA", "", "?"), strip.white=TRUE, encoding="UTF-8")
 file_name <- basename(file)
