@@ -29,6 +29,155 @@ for (subset in 1:(subsets)) {
   subset.train <- c(subset.train.class0, subset.train.class1)
   subset.test <- setdiff(subset.total, subset.train)
   
+  subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train)
+  subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train)
+  subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train)
+  subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train)
+  subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train) subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train) subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train) subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train) subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train) subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train) subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train) subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train) subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train) subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train) subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train) subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train) subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train) subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train) subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train) subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train) subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train) subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train) subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train) subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train) subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train) subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train) subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train) subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train) subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train) subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train) subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train) subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train) subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train) subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train) subset.total <- c(subset.class0, subset.class1)
+  subset.train.class0 <- subset.class0[1:round(0.9*length(subset.class0))]
+  subset.train.class1 <- subset.class1[1:round(0.9*length(subset.class1))]
+  subset.train <- c(subset.train.class0, subset.train.class1)
+  subset.test <- setdiff(subset.total, subset.train)
+  
+  train.data
+  test.data
+  
   subset.train.data <- dataset[subset.train,]
   subset.test.data <- dataset[subset.test,]
   
