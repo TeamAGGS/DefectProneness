@@ -4,6 +4,9 @@ library(mda)
 options(echo=TRUE) # if you want see commands in output file
 args <- commandArgs(trailingOnly = TRUE)
 print(args)
+loopval <- as.numeric(args[2])
+splitval <- as.numeric(args[3])
+bucketval <- as.numeric(args[4])
 
 set.seed(123)
 k <- 2 # For 10-fold cross-validation
@@ -26,21 +29,25 @@ fold <- fold[sample(1:length(fold), length(fold), replace=F)]
 error <- 100
 bestmodel <- ""
 
-for(i in 1:k) {
-  cv.index = which(fold == i)
-  train.index = setdiff(1:length(fold),cv.index)
-  
-  tree = rpart(bug ~., dataset[train.index,], method="class", parms=list(split=args[1]), control=rpart.control(minsplit=args[2],minbucket=args[3],cp=0))
-  pred <- predict(tree, dataset[cv.index,], type="class")
-  cm <- confusion(pred, factor(dataset[cv.index,"bug"], levels=c(0,1)))
-  c.error <- as.numeric(as.character(attr(cm, "error")))
-  
-  if(c.error < error) {
-    error <- c.error
-    bestmodel <- tree
+for(j in 1:loopval){
+  for(i in 1:k) {
+    cv.index = which(fold == i)
+    train.index = setdiff(1:length(fold),cv.index)
+    
+    tree = rpart(bug ~., dataset[train.index,], method="class", parms=list(split=args[1]), control=rpart.control(minsplit=splitval,minbucket=bucketval,cp=0))
+    pred <- predict(tree, dataset[cv.index,], type="class")
+    cm <- confusion(pred, factor(dataset[cv.index,"bug"], levels=c(0,1)))
+    c.error <- as.numeric(as.character(attr(cm, "error")))
+    
+    if(c.error < error) {
+      error <- c.error
+      bestmodel <- tree
+    }
   }
+  splitval = splitval*2;
+  bucketval = bucketval*2;
+  
 }
-
 bestmodel
 ############# End of k-fold Cross Validation ######################
 
