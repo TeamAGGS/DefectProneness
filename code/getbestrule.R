@@ -23,6 +23,7 @@ getbestrule <- function(rules.all, dataset) {
     # Check if they have already been seen before as a pair. If not, mark them visited
     if(visited[rule1.index,rule2.index] == 1) next
     visited[rule1.index,rule2.index] = 1
+    visited[rule2.index,rule1.index] = 1
     
     # Get the actual rules
     rule.first <- rules.all[[rule1.index]]@attributes

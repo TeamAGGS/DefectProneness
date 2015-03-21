@@ -13,8 +13,5 @@ sortrules <- function(rules.all) {
     rules.all[[j+1]] = currentrule
   }
   
-  for(i in 1:totalrules) {
-    print(rules.all[[i]]@rl)
-  }
   return(rules.all)
 }
