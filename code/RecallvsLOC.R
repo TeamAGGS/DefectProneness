@@ -32,3 +32,5 @@ rules.all <- sortrules(rules.all)
 # Call getbestrule to get the best rule
 rules.all <- getbestrule(rules.all, dataset)
 length(rules.all)
+for(i in 1:(length(rules.all)))
+  print(length(rules.all[[i]]@attributes))
