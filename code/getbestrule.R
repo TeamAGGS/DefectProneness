@@ -59,6 +59,10 @@ getbestrule <- function(rules.all, dataset) {
       loc <- sum(datadup[,"loc"])
       rl <- recall/loc;
       
+      # If rl is better than betvalue update bestvalue
+      if(rl > bestvalue)
+        bestvalue <- rl
+      
       # Create a new rule by combining these two rules and add it to the set of rules
       newrule <- new("Rule", attributes = c(rule.first, rule.second), rl = rl)
       rules.all <- c(rules.all, newrule)
