@@ -2,7 +2,7 @@ getbestrule <- function(rules.all, dataset) {
   # Implement the algorithm
   threshold <- 0.00001
   bestvalue <- rules.all[[1]]@rl
-  numiter <- 25
+  numiter <- 100
   totalrules <- length(rules.all)
   
   # Create a matrix such than an entry [i,j] = 1 if rules.all[[i]] & rules.all[[j]] has already been processed together
