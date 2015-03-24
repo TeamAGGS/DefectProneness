@@ -69,6 +69,7 @@ getbestrule <- function(rules.all, dataset) {
       
       # TODO: Add this rule to its proper place in rules.all based on its "rl" value.
       # This will be required when we choose rules at random based on their "rl" value.
+      rules.all <- sortrules(rules.all)
       
       # Add a row and column for this rule in visited matrx
       v <- rep(0, nrow(visited))
