@@ -59,12 +59,17 @@ getbestrule <- function(rules.all, dataset) {
       loc <- sum(datadup[,"loc"])
       rl <- recall/loc;
       
+      # If rl is better than betvalue update bestvalue
+      if(rl > bestvalue)
+        bestvalue <- rl
+      
       # Create a new rule by combining these two rules and add it to the set of rules
       newrule <- new("Rule", attributes = c(rule.first, rule.second), rl = rl)
       rules.all <- c(rules.all, newrule)
       
       # TODO: Add this rule to its proper place in rules.all based on its "rl" value.
       # This will be required when we choose rules at random based on their "rl" value.
+      rules.all <- sortrules(rules.all)
       
       # Add a row and column for this rule in visited matrx
       v <- rep(0, nrow(visited))
