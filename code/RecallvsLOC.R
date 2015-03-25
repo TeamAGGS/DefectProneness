@@ -25,12 +25,14 @@ for (attribute in (1:numattributes)) {
 
 # Be sure to include sortrules and all the functions in getbestrule.R before proceeding.
 # You can do that by selecting everything from that file and executing them.
-
-# Sort the rules in descending order of their "rl" value
-rules.all <- sortrules(rules.all)
-
 # Call getbestrule to get the best rule
-rules.all <- getbestrule(rules.all, dataset)
-length(rules.all)
-for(i in 1:(length(rules.all)))
-  print(length(rules.all[[i]]@attributes))
+newrules <- getbestrule(rules.all, dataset, 0.25)
+newrules <- sortrules(newrules)
+length(newrules)
+for(i in 1:(length(newrules))) {
+  rl <- newrules[[i]]@rl
+  numAtt <- length(newrules[[i]]@attributes)
+  print(paste("Rule:",i))
+  print(paste(paste("Num Attributes=", numAtt), paste("Recall/LOC=", rl), sep=" ,"))
+}
+  
