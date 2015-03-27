@@ -38,7 +38,7 @@ set R_Script="C:\Program Files\R\R-3.1.2\bin\RScript.exe"
 
 %R_Script% Model-Testing.R ..\models\redaktor-training.csv.rda ..\testing_data\redaktor-testing.csv ..\PredictedData\redaktor.csv
 
-%R_Script% Model-Testing.R ..\models\serapion-training.csv.rda ..\testing_data\serapion-testing.csv ..\PredictedData\serapion-.csv
+%R_Script% Model-Testing.R ..\models\serapion-training.csv.rda ..\testing_data\serapion-testing.csv ..\PredictedData\serapion.csv
 
 %R_Script% Model-Testing.R ..\models\skarbonka-training.csv.rda ..\testing_data\skarbonka-testing.csv ..\PredictedData\skarbonka.csv
 
