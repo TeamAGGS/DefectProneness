@@ -1,21 +1,16 @@
-library(mda)
-library(randomForest)
-
-options(echo=TRUE) # if you want see commands in output file
-args <- commandArgs(trailingOnly = TRUE)
-print(args)
-
-set.seed(123)
-
-file=args[1]
-dataset <- read.csv(file, na.strings=c(".", "NA", "", "?"), strip.white=TRUE, encoding="UTF-8")
-file_name <- basename(file)
-
-bestmodel <- randomForest(as.factor(bug) ~., dataset, ntree=500, replace=T,mtry=35)
-bestmodel
-modelfile=paste(paste("../models/",file_name, sep=""), ".rda", sep="")
-save(bestmodel, file=modelfile)
-testdata <- read.csv(file=args[2], na.strings=c(".", "NA", "", "?"), strip.white=TRUE, encoding="UTF-8")
-pred <- predict(bestmodel, testdata, type="class")
-cm <- confusion(pred, factor(testdata$bug, levels=c(0,1)))
-cm
+RandomForest <- function(train, test) {
+  
+  # Set some parameters for tuning
+  trees <- c(10,20,40,80,100)
+  bestauc <- 0
+  
+  for(tree in trees) {
+    forest <- randomForest(as.factor(bug) ~., train, ntree=500, replace=T)
+    pred <- predict(forest, test)
+    triggers <- which(pred==1)
+    auc <- aucPdPf(test, test[triggers,])
+    
+    if(auc > bestauc) bestauc = auc
+  }
+  return(bestauc)
+}

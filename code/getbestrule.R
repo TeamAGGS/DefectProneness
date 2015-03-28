@@ -5,7 +5,7 @@ getbestrule <- function(rules.all, dataset, threshold) {
   # Sort the rules in descending order of their "rl" value
   rules.all <- sortrules(rules.all)
   
-  while(previousBest < rules.all[[1]]@rl) {
+  while(previousBest < rules.all[[1]]@rl & length(rules.all) > 1) {
     # Proceed with next generation while we can still improve. Update prevoiusBest to stack top
     previousBest <- rules.all[[1]]@rl
     gen <- gen + 1
@@ -26,7 +26,7 @@ getbestrule <- function(rules.all, dataset, threshold) {
     # Create a matrix such than an entry [i,j] = 1 if rules.all[[i]] & rules.all[[j]] has already been processed together
     visited <- matrix(0, totalrules, totalrules)
     
-    while(length(rules.all) <= 2*totalrules & numTrial <= totalTrials) {
+    while(totalrules > 1 & length(rules.all) <= 2*totalrules & numTrial <= totalTrials) {
       numTrial <- numTrial + 1
       # Randomly get index of two rules. Choose indexes at random based on their "rl" value.
       # Higher the value of rl, more likely is it that the rule will be selected.
