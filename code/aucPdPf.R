@@ -4,9 +4,9 @@ aucPdPf <- function(tests, triggered) {
   auc = loc1 = bad1 = 0
   
   # Take all the buggy item, work up in ascending order
-  bad1 = nrow(triggered)
   triggered <- triggered[with(triggered, order(loc)),]
   for(i in 1:nrow(triggered)) {
+    if(triggered[i,"bug"]==1) bad1 = bad1 + 1
     pd = bad1/bad0
     loc1 = loc1 + triggered[i,"loc"]
     ploc = loc1/loc0

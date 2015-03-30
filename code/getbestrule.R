@@ -2,15 +2,20 @@ getbestrule <- function(rules.all, dataset, threshold) {
   # Implement the algorithm
   previousBest <- 0
   gen <- 0
+  alpha <- 1
+  beta <- 1000
+  gamma <- 0
   # Sort the rules in descending order of their "rl" value
   rules.all <- sortrules(rules.all)
-  
+  print(paste("Stack top is:", rules.all[[1]]@rl))
   while(previousBest < rules.all[[1]]@rl & length(rules.all) > 1) {
     # Proceed with next generation while we can still improve. Update prevoiusBest to stack top
     previousBest <- rules.all[[1]]@rl
     gen <- gen + 1
     
     # Get rid of useless rules
+    print(paste("Generation", gen))
+    print(paste("Rules before pruning:", length(rules.all)))
     rules.all <- pruneRules(rules.all, threshold)
     
     sum <- sumRL(rules.all)
@@ -21,12 +26,12 @@ getbestrule <- function(rules.all, dataset, threshold) {
     totalTrials <- 5*totalrules
     numTrial <- 1
     print(paste("Generation", gen))
-    print(paste("Rules:", totalrules))
+    print(paste("Rules after pruning:", totalrules))
     
     # Create a matrix such than an entry [i,j] = 1 if rules.all[[i]] & rules.all[[j]] has already been processed together
     visited <- matrix(0, totalrules, totalrules)
     
-    while(totalrules > 1 & length(rules.all) <= 2*totalrules & numTrial <= totalTrials) {
+    while(totalrules > 1 & length(rules.all) < 2*totalrules & numTrial < totalTrials) {
       numTrial <- numTrial + 1
       # Randomly get index of two rules. Choose indexes at random based on their "rl" value.
       # Higher the value of rl, more likely is it that the rule will be selected.
@@ -71,9 +76,14 @@ getbestrule <- function(rules.all, dataset, threshold) {
       if(nrow(datadup) == 0) next
       else {
         # Find the recall/loc of this new rule
-        recall <- length(which(datadup[,"bug"] > 0))
-        loc <- sum(datadup[,"loc"])
-        rl <- recall/loc;
+        tp <- length(which(datadup[,"bug"] > 0))
+        fp <- length(which(datadup[,"bug"] == 0))
+        pd <- tp/length(which(dataset[,"bug"] > 0))
+        pf <- fp/length(which(dataset[,"bug"] == 0))
+        rl <- 1 - (sqrt((pd*pd*alpha) + (1-pf)*(1-pf)*beta)/sqrt(alpha + beta))
+        #recall <- length(which(datadup[,"bug"] > 0))
+        #loc <- sum(datadup[,"loc"])
+        #rl <- recall/loc;
         
 		# Skip this rule if it gives rl = 0. These will be anyway pruned in the next generation
         if(rl == 0) next
@@ -92,6 +102,9 @@ getbestrule <- function(rules.all, dataset, threshold) {
     }
     # Sort the rules at the end of a generation so we can see if we have improved the stack top
     rules.all <- sortrules(rules.all)
+    print(paste("End of generation: ", gen))
+    print(paste("Rules at generation end: ", length(rules.all)))
+    print(paste("Stack top is: ", rules.all[[1]]@rl))
   }
   return(rules.all)
 }
