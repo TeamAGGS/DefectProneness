@@ -19,9 +19,12 @@ DecisionTree <- function(train, test, type) {
       
       pred <- predict(tree, test, type="class")
       triggers <- which(pred==1)
-      auc <- aucPdPf(test, test[triggers,])
+      auc <- 0
       
-      if(auc > bestauc) bestauc = auc
+      if(length(triggers) > 0) {
+        auc <- aucPdPf(test, test[triggers,])
+      } 
+      if(auc > bestauc) bestauc <- auc
     }
   }
   return(bestauc)

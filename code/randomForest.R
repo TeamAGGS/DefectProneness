@@ -5,10 +5,13 @@ RandomForest <- function(train, test) {
   bestauc <- 0
   
   for(tree in trees) {
-    forest <- randomForest(as.factor(bug) ~., train, ntree=500, replace=T)
+    forest <- randomForest(as.factor(bug) ~., train, ntree=tree, replace=T)
     pred <- predict(forest, test)
     triggers <- which(pred==1)
-    auc <- aucPdPf(test, test[triggers,])
+    auc <- 0
+    if(length(triggers) > 0) {
+      auc <- aucPdPf(test, test[triggers,])
+    }
     
     if(auc > bestauc) bestauc = auc
   }

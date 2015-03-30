@@ -7,18 +7,24 @@ modelWhich <- function(train, test, threshold) {
   
   rules.all <- c()
   numattributes = ncol(train)-1
-  #print(numattributes)
+  alpha <- 1
+  beta <- 1000
+  gamma <- 0
+
 #   Perform binning for all attributes and generate corresponding singleton rules
   for (attribute in (1:numattributes)) { 
     quantiles <- c(min(train[,attribute]), quantile(train[,attribute], c(0.20, 0.40, 0.60, 0.80, 1.00)))
     for (i in 2:6) {
       rows <- which(train[,attribute] <= quantiles[i] & train[,attribute] > quantiles[i-1])
       if(length(rows) > 0) {
-        recall <- length(which(train[rows,"bug"] > 0))
-        loc <- sum(train[rows, "loc"])
+        tp <- length(which(train[rows,"bug"] > 0))
+        fp <- length(which(train[rows,"bug"] == 0))
+        pd <- tp/length(which(train[,"bug"] > 0))
+        pf <- fp/length(which(train[,"bug"] == 0))
+        rl <- 1 - (sqrt((pd*pd*alpha) + (1-pf)*(1-pf)*beta)/sqrt(alpha + beta))
         #print(paste(quantiles[i-1], " < ", colnames(train)[attribute], " <= ", quantiles[i], ": , Recall/LOC =  ", recall/loc))
         att <- new("AttributeRange", name = colnames(train)[attribute], lower = quantiles[i-1], upper = quantiles[i])
-        newrule <- new("Rule", attributes = c(att), rl = recall/loc)
+        newrule <- new("Rule", attributes = c(att), rl = rl)
         rules.all <- c(rules.all, newrule)
       } 
     }

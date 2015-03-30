@@ -3,7 +3,9 @@ NaiveBayesian <- function(train, test) {
   pred <- predict(NB, test, type="class")
   
   triggers <- which(pred==1)
-  auc <- aucPdPf(test, test[triggers,])
-  
+  auc <- 0
+  if(length(triggers) > 0) {
+    auc <- aucPdPf(test, test[triggers,])
+  }
   return(auc)
 }
