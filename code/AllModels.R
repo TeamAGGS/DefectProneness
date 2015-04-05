@@ -16,7 +16,9 @@ source("code/DecisionTree.R")
 source("code/aucPdPf.R")
 
 
-files <- list.files(path="data/training", recursive=F, full.names=T)
+files <- list.files(path="C:/defect_proness/DefectProneness/data/training_shivani", recursive=F, full.names=T)
+DTauc = NBauc = RFauc = SVMauc = WHICHauc = 0
+DTmodel = NBmodel = RFmodel = SVMmodel = WHICHmodel = ""
 folds <- 5
 threshold <- 0.25
 kernel <- 'rbfdot'
@@ -62,45 +64,50 @@ for (file in files) {
       triggered <- test[which(test[,"bug"] == 1),]
       god <- aucPdPf(test, triggered)
       
-      out <- ""
-      out <- printUtility(repetition, i, datasetName, "DecisionTree", out)
-      print("DecisionTree")
-      mortal <- DecisionTree(train, test, 'gini')
-      mortal <- mortal/god
-      out <- paste(out, mortal, sep = ",")
-      result <- paste(result, out, sep="\n")
+      #out <- ""
+      #out <- printUtility(repetition, i, datasetName, "DecisionTree", out)
+      #print("DecisionTree")
+      #mortal <- DecisionTree(train, test, 'gini')
+      #mortal <- mortal/god
+      #out <- paste(out, mortal, sep = ",")
+      #result <- paste(result, out, sep="\n")
       
-      out <- ""
-      out <- printUtility(repetition, i, datasetName, "NaiveBayesian", out)
-      print("NaiveBayesian")
-      mortal <- NaiveBayesian(train, test)
-      mortal <- mortal/god
-      out <- paste(out, mortal, sep = ",")
-      result <- paste(result, out, sep="\n")
+      #out <- ""
+      #out <- printUtility(repetition, i, datasetName, "NaiveBayesian", out)
+      #print("NaiveBayesian")
+      #mortal <- NaiveBayesian(train, test)
+      #mortal <- mortal/god
+      #out <- paste(out, mortal, sep = ",")
+      #result <- paste(result, out, sep="\n")
       
       out <- ""
       out <- printUtility(repetition, i, datasetName, "RandomForest", out)
       print("RandomForest")
-      mortal <- RandomForest(train, test)
-      mortal <- mortal/god
+      outputs <- RandomForest(train, test)
+      print(outputs[[1]])
+      if(outputs[[1]] > RFauc) {
+        RFauc <- outputs[[1]]
+        RFmodel <- outputs[[2]]
+      }
+      mortal <- outputs[[1]]/god
       out <- paste(out, mortal, sep = ",")
       result <- paste(result, out, sep="\n")
       
-      out <- ""
-      out <- printUtility(repetition, i, datasetName, "SVM", out)
-      print("SVM")
-      mortal <- SVM(train, test, kernel, scale)
-      mortal <- mortal/god
-      out <- paste(out, mortal, sep = ",")
-      result <- paste(result, out, sep="\n")
+      #out <- ""
+      #out <- printUtility(repetition, i, datasetName, "SVM", out)
+      #print("SVM")
+      #mortal <- SVM(train, test, kernel, scale)
+      #mortal <- mortal/god
+      #out <- paste(out, mortal, sep = ",")
+      #result <- paste(result, out, sep="\n")
       
-      out <- ""
-      out <- printUtility(repetition, i, datasetName, "Which", out)
-      print("Which")
-      mortal <- modelWhich(train, test, threshold)
-      mortal <- mortal/god
-      out <- paste(out, mortal, sep = ",")
-      result <- paste(result, out, sep="\n")
+      #out <- ""
+      #out <- printUtility(repetition, i, datasetName, "Which", out)
+      #print("Which")
+      #mortal <- modelWhich(train, test, threshold)
+      #mortal <- mortal/god
+      #out <- paste(out, mortal, sep = ",")
+      #result <- paste(result, out, sep="\n")
       
     }
   }

@@ -3,6 +3,7 @@ RandomForest <- function(train, test) {
   # Set some parameters for tuning
   trees <- c(10,20,40,80,100)
   bestauc <- 0
+  bestmodel <- ""
   
   for(tree in trees) {
     forest <- randomForest(as.factor(bug) ~., train, ntree=tree, replace=T)
@@ -13,7 +14,10 @@ RandomForest <- function(train, test) {
       auc <- aucPdPf(test, test[triggers,])
     }
     
-    if(auc > bestauc) bestauc = auc
+    if(auc > bestauc) {
+      bestauc <- auc 
+      bestmodel <- forest
+    } 
   }
-  return(bestauc)
+  return(list(bestauc,bestmodel))
 }
