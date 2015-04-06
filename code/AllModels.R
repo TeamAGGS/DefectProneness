@@ -64,13 +64,17 @@ for (file in files) {
       triggered <- test[which(test[,"bug"] == 1),]
       god <- aucPdPf(test, triggered)
       
-      #out <- ""
-      #out <- printUtility(repetition, i, datasetName, "DecisionTree", out)
-      #print("DecisionTree")
-      #mortal <- DecisionTree(train, test, 'gini')
-      #mortal <- mortal/god
-      #out <- paste(out, mortal, sep = ",")
-      #result <- paste(result, out, sep="\n")
+      out <- ""
+      out <- printUtility(repetition, i, datasetName, "DecisionTree", out)
+      print("DecisionTree")
+      outputs <- DecisionTree(train, test, 'gini')
+      if(outputs[[1]] > RFauc) {
+        DTauc <- outputs[[1]]
+        DTmodel <- outputs[[2]]
+      }
+      mortal <- outputs[[1]]/god
+      out <- paste(out, mortal, sep = ",")
+      result <- paste(result, out, sep="\n")
       
       #out <- ""
       #out <- printUtility(repetition, i, datasetName, "NaiveBayesian", out)
@@ -84,7 +88,6 @@ for (file in files) {
       out <- printUtility(repetition, i, datasetName, "RandomForest", out)
       print("RandomForest")
       outputs <- RandomForest(train, test)
-      print(outputs[[1]])
       if(outputs[[1]] > RFauc) {
         RFauc <- outputs[[1]]
         RFmodel <- outputs[[2]]
@@ -93,13 +96,17 @@ for (file in files) {
       out <- paste(out, mortal, sep = ",")
       result <- paste(result, out, sep="\n")
       
-      #out <- ""
-      #out <- printUtility(repetition, i, datasetName, "SVM", out)
-      #print("SVM")
-      #mortal <- SVM(train, test, kernel, scale)
-      #mortal <- mortal/god
-      #out <- paste(out, mortal, sep = ",")
-      #result <- paste(result, out, sep="\n")
+      out <- ""
+      out <- printUtility(repetition, i, datasetName, "SVM", out)
+      print("SVM")
+      outputs <- SVM(train, test, kernel, scale)
+      if(outputs[[1]] > RFauc) {
+        SVMauc <- outputs[[1]]
+        SVMmodel <- outputs[[2]]
+      }
+      mortal <- outputs[[1]]/god
+      out <- paste(out, mortal, sep = ",")
+      result <- paste(result, out, sep="\n")
       
       #out <- ""
       #out <- printUtility(repetition, i, datasetName, "Which", out)
@@ -113,3 +120,23 @@ for (file in files) {
   }
   write(result, file=resultFilename)
 }
+
+# Read ant.csv testing data
+testdata <- read.csv(file=file.choose(), na.strings=c(".", "NA", "", "?"), strip.white=TRUE, encoding="UTF-8")
+testdata <- testdata[,-c(1,2,3)]
+testdata$bug <- factor(ifelse(testdata$bug > 0, 1, 0))
+
+# Run best random forest model on testing
+RF <- predict(RFmodel, testdata, type="class")
+cm <- confusion(RF, factor(testdata$bug, levels=c(0,1)))
+cm
+writedata <- cbind(testdata, RF)
+
+# Run best decision tree model on testing
+DT <- predict(DTmodel, testdata, type="class")
+cm <- confusion(DT, factor(testdata$bug, levels=c(0,1)))
+cm
+writedata <- cbind(writedata, DT)
+
+# Write file
+write.csv(writedata, file="ant_with_learners.csv", row.names=F)
