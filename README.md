@@ -1,7 +1,7 @@
 # Relative Defect Proneness
   
-CSC-510 Software Engineering
-Project Report 1-b
+ CSC-510 Software Engineering
+ Project Report 1-b
   
 # Goals
 
