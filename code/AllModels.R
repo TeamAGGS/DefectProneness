@@ -16,7 +16,7 @@ source("code/DecisionTree.R")
 source("code/aucPdPf.R")
 
 
-files <- list.files(path="C:/defect_proness/DefectProneness/data/training_shivani", recursive=F, full.names=T)
+files <- list.files(path="../data/training_shivani", recursive=F, full.names=T)
 DTauc = NBauc = RFauc = SVMauc = WHICHauc = 0
 DTmodel = NBmodel = RFmodel = SVMmodel = WHICHmodel = ""
 folds <- 5
@@ -112,13 +112,14 @@ for (file in files) {
       out <- paste(out, mortal, sep = ",")
       result <- paste(result, out, sep="\n")
       
-      #out <- ""
-      #out <- printUtility(repetition, i, datasetName, "Which", out)
-      #print("Which")
-      #mortal <- modelWhich(train, test, threshold)
-      #mortal <- mortal/god
-      #out <- paste(out, mortal, sep = ",")
-      #result <- paste(result, out, sep="\n")
+      out <- ""
+      out <- printUtility(repetition, i, datasetName, "Which", out)
+      print("Which")
+      outputs <- modelWhich(train, test, threshold)
+      print(outputs[[2]])
+      mortal <- outputs[[1]]/god
+      out <- paste(out, mortal, sep = ",")
+      result <- paste(result, out, sep="\n")
       
     }
   }

@@ -3,6 +3,7 @@ SVM <- function(train, test, kernel, scale) {
   # Have a set of cost parameters
   costs <- c(10, 20, 40, 60, 80, 100)
   bestauc <- 0
+  bestmodel <- ""
   for(cost in costs) {
     if(!scale) {
       svm <- svm(as.factor(bug) ~ .,
