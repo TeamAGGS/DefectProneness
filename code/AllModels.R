@@ -16,8 +16,8 @@ source("code/DecisionTree.R")
 source("code/aucPdPf.R")
 
 
-files <- list.files(path="C:/defect_proness/DefectProneness/data/training_shivani", recursive=F, full.names=T)
-DTauc = NBauc = RFauc = SVMauc = WHICHauc = 0
+files <- list.files(path="../data/training_shivani", recursive=F, full.names=T)
+DTmg = NBmg = RFmg = SVMmg = WHICHmg = 0
 DTmodel = NBmodel = RFmodel = SVMmodel = WHICHmodel = ""
 folds <- 5
 threshold <- 0.25
@@ -68,57 +68,62 @@ for (file in files) {
       out <- printUtility(repetition, i, datasetName, "DecisionTree", out)
       print("DecisionTree")
       outputs <- DecisionTree(train, test, 'gini')
-      if(outputs[[1]] > DTauc) {
-        DTauc <- outputs[[1]]
+      mortalgod <- outputs[[1]]/god
+      if(mortalgod > DTmg) {
+        DTmg <- mortalgod
         DTmodel <- outputs[[2]]
       }
-      mortal <- outputs[[1]]/god
-      out <- paste(out, mortal, sep = ",")
+      out <- paste(out, mortalgod, sep = ",")
       result <- paste(result, out, sep="\n")
       
       out <- ""
       out <- printUtility(repetition, i, datasetName, "NaiveBayesian", out)
       print("NaiveBayesian")
       outputs <- NaiveBayesian(train, test)
-      if(outputs[[1]] > NBauc) {
-        NBauc <- outputs[[1]]
+      mortalgod <- outputs[[1]]/god
+      if(mortalgod > NBmg) {
+        NBmg <- mortalgod
         NBmodel <- outputs[[2]]
       }
-      mortal <- outputs[[1]]/god
-      out <- paste(out, mortal, sep = ",")
+      out <- paste(out, mortalgod, sep = ",")
       result <- paste(result, out, sep="\n")
       
       out <- ""
       out <- printUtility(repetition, i, datasetName, "RandomForest", out)
       print("RandomForest")
       outputs <- RandomForest(train, test)
-      if(outputs[[1]] > RFauc) {
-        RFauc <- outputs[[1]]
+      mortalgod <- outputs[[1]]/god
+      if(mortalgod > RFmg) {
+        RFmg <- mortalgod
         RFmodel <- outputs[[2]]
       }
-      mortal <- outputs[[1]]/god
-      out <- paste(out, mortal, sep = ",")
+      out <- paste(out, mortalgod, sep = ",")
       result <- paste(result, out, sep="\n")
       
       out <- ""
       out <- printUtility(repetition, i, datasetName, "SVM", out)
       print("SVM")
       outputs <- SVM(train, test, kernel, scale)
-      if(outputs[[1]] > SVMauc) {
-        SVMauc <- outputs[[1]]
+      mortalgod <- outputs[[1]]/god
+      if(mortalgod > SVMmg) {
+        SVMmg <- mortalgod
         SVMmodel <- outputs[[2]]
       }
-      mortal <- outputs[[1]]/god
-      out <- paste(out, mortal, sep = ",")
+      out <- paste(out, mortalgod, sep = ",")
       result <- paste(result, out, sep="\n")
       
-      #out <- ""
-      #out <- printUtility(repetition, i, datasetName, "Which", out)
-      #print("Which")
-      #mortal <- modelWhich(train, test, threshold)
-      #mortal <- mortal/god
-      #out <- paste(out, mortal, sep = ",")
-      #result <- paste(result, out, sep="\n")
+      out <- ""
+      out <- printUtility(repetition, i, datasetName, "Which", out)
+      print("Which")
+      outputs <- modelWhich(train, test, threshold)
+      #print(outputs[[2]])
+      mortalgod <- outputs[[1]]/god
+      if(mortalgod > WHICHmg) {
+        WHICHmg <- mortalgod
+        WHICHrule <- outputs[[2]]
+      }
+      out <- paste(out, mortalgod, sep = ",")
+      result <- paste(result, out, sep="\n")
       
     }
   }
@@ -153,6 +158,16 @@ NB <- predict(NBmodel, testdata)
 cm <- confusion(NB, factor(testdata$bug, levels=c(0,1)))
 cm
 writedata <- cbind(writedata, NB)
+
+# Run best rule of WHICH on testing
+WHICH <- numeric(nrow(testdata))
+writedata <- cbind(writedata, WHICH)
+for(rule in WHICHrule@attributes) {
+  att <- rule@name
+  lower <- rule@lower
+  upper <- rule@upper
+  writedata$WHICH[which(writedata[,att] > lower & writedata[,att] <= upper)] <- 1
+}
 
 # Write file
 write.csv(writedata, file="ant_with_learners.csv", row.names=F)

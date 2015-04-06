@@ -6,6 +6,7 @@ DecisionTree <- function(train, test, type) {
   minbucket_values = round(c(default_minbucket/4, default_minbucket/2, default_minbucket, default_minbucket*2, default_minbucket*4))
   
   bestauc <- 0
+  bestmodel <- ""
   
   # Start making decision-tree models
   for(i in 1:length(minsplit_values)){
