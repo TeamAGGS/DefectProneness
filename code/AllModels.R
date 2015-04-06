@@ -31,7 +31,7 @@ for (file in files) {
   datasetName <- unlist(strsplit(datasetName, "[.]"))[[1]]
   result <- ""
   # Do everything 5 times
-  for(repetition in 1:5) {
+  for(repetition in 1:2) {
     
     # Shuffle the data in every repetition
     data <- dataset[sample(nrow(dataset)),]
@@ -68,7 +68,7 @@ for (file in files) {
       out <- printUtility(repetition, i, datasetName, "DecisionTree", out)
       print("DecisionTree")
       outputs <- DecisionTree(train, test, 'gini')
-      if(outputs[[1]] > RFauc) {
+      if(outputs[[1]] > DTauc) {
         DTauc <- outputs[[1]]
         DTmodel <- outputs[[2]]
       }
@@ -100,7 +100,7 @@ for (file in files) {
       out <- printUtility(repetition, i, datasetName, "SVM", out)
       print("SVM")
       outputs <- SVM(train, test, kernel, scale)
-      if(outputs[[1]] > RFauc) {
+      if(outputs[[1]] > SVMauc) {
         SVMauc <- outputs[[1]]
         SVMmodel <- outputs[[2]]
       }
@@ -137,6 +137,12 @@ DT <- predict(DTmodel, testdata, type="class")
 cm <- confusion(DT, factor(testdata$bug, levels=c(0,1)))
 cm
 writedata <- cbind(writedata, DT)
+
+# Run best SVM model on testing
+SVM <- predict(SVMmodel, testdata)
+cm <- confusion(SVM, factor(testdata$bug, levels=c(0,1)))
+cm
+writedata <- cbind(writedata, SVM)
 
 # Write file
 write.csv(writedata, file="ant_with_learners.csv", row.names=F)

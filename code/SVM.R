@@ -11,10 +11,10 @@ SVM <- function(train, test, kernel, scale) {
                  prob.model=TRUE, scale=FALSE)
     } else {
       svm <- ksvm(as.factor(bug) ~ .,
-                 data=train,
-                 kernel=kernel,
-                 C=cost,
-                 prob.model=TRUE)
+                  data=train,
+                  kernel=kernel,
+                  C=cost,
+                  prob.model=TRUE)
     }
     pred <- predict(svm, test)
     triggers <- which(pred==1)
@@ -23,7 +23,10 @@ SVM <- function(train, test, kernel, scale) {
       auc <- aucPdPf(test, test[triggers,])
     }
     
-    if(auc > bestauc) bestauc = auc
+    if(auc > bestauc) {
+      bestauc <- auc 
+      bestmodel <- svm
+    } 
   }
-  return(bestauc)
+  return(list(bestauc,bestmodel))
 }
