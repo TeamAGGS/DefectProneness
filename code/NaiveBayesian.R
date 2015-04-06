@@ -7,5 +7,5 @@ NaiveBayesian <- function(train, test) {
   if(length(triggers) > 0) {
     auc <- aucPdPf(test, test[triggers,])
   }
-  return(auc)
+  return(list(auc,NB))
 }

@@ -1,5 +1,5 @@
 DecisionTree <- function(train, test, type) {
-# Some parameters for Automatic Tuning
+  # Some parameters for Automatic Tuning
   default_minsplit = 20
   default_minbucket = 7 
   minsplit_values = round(c(default_minsplit/4, default_minsplit/2, default_minsplit, default_minsplit*2, default_minsplit*4))
@@ -24,8 +24,11 @@ DecisionTree <- function(train, test, type) {
       if(length(triggers) > 0) {
         auc <- aucPdPf(test, test[triggers,])
       } 
-      if(auc > bestauc) bestauc <- auc
+      if(auc > bestauc) {
+        bestauc <- auc 
+        bestmodel <- tree
+      } 
     }
+    return(list(bestauc,bestmodel))
   }
-  return(bestauc)
 }
