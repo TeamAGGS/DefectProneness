@@ -76,13 +76,17 @@ for (file in files) {
       out <- paste(out, mortal, sep = ",")
       result <- paste(result, out, sep="\n")
       
-      #out <- ""
-      #out <- printUtility(repetition, i, datasetName, "NaiveBayesian", out)
-      #print("NaiveBayesian")
-      #mortal <- NaiveBayesian(train, test)
-      #mortal <- mortal/god
-      #out <- paste(out, mortal, sep = ",")
-      #result <- paste(result, out, sep="\n")
+      out <- ""
+      out <- printUtility(repetition, i, datasetName, "NaiveBayesian", out)
+      print("NaiveBayesian")
+      outputs <- NaiveBayesian(train, test)
+      if(outputs[[1]] > NBauc) {
+        NBauc <- outputs[[1]]
+        NBmodel <- outputs[[2]]
+      }
+      mortal <- outputs[[1]]/god
+      out <- paste(out, mortal, sep = ",")
+      result <- paste(result, out, sep="\n")
       
       out <- ""
       out <- printUtility(repetition, i, datasetName, "RandomForest", out)
@@ -143,6 +147,12 @@ SVM <- predict(SVMmodel, testdata)
 cm <- confusion(SVM, factor(testdata$bug, levels=c(0,1)))
 cm
 writedata <- cbind(writedata, SVM)
+
+# Run best Naive Bayesian on testing
+NB <- predict(NBmodel, testdata)
+cm <- confusion(NB, factor(testdata$bug, levels=c(0,1)))
+cm
+writedata <- cbind(writedata, NB)
 
 # Write file
 write.csv(writedata, file="ant_with_learners.csv", row.names=F)
