@@ -208,6 +208,9 @@ If this is true, we should see higher auc values for our classifiers (at least t
 **Hypothesis-2: WHICH is better than standard learners**
 If this is true, we should see higher auc values for WHICH in most of the datasets. We don't see that happening in any ofthe datasets. It might be an issue inside our code or our logic. It's too early to refute this hypothesis. Like we discussed earlier, it looks more promising in that it uses "pd" and "pf" to optimize rules, and this is missing in standard learners.
 
+**Hypothesis-3: Manual Up is better than Manual Down**
+We don't observe this in any of the datasets. This hypothesis has been proved in few researches, but after careful observation we report that we don't observe this in any of the datasets. Manual down consistently outperforms Manual Up. To convince ourselves, we verified this manually and observed that more bugs were present in larger modules.
+
 **Few more observations**
 - WHICH could generate a very simplistic rule containing only 1 attribute. Our code somehow couldn't generate composite rules containing more than 1 attribute. This lead to a very poor model which generated too many false positives. Hence, we see curve for WHICH reaching y-values more than 100 in graphs shown earlier.
 - There were a few datasets that had modules containing loc=0 (lines of code = 0). This lead to a few problems in auc calculation as it was leading to divide-by-zero exceptions. We assumed auc value to be zero in these situations.
