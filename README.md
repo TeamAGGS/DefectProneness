@@ -84,6 +84,37 @@ The following results are based on the recall values computed upon testing the d
 | velocity | 0.3953        | 0.3953        | 0.4469         | 0.3857 | 0.3088 |
 | xalan    | 1             |               | 1              | 1      | 0.9954 |
 
+
+- Comparing performance of the Learners:
+We worked with the above mentioned datasets and the following are the graph plots that show the manualUP, manualDown and the five learners: Random Forest, Naive Bayesian, SVM, Decision Tree and WHICH perform. 
+
+***Ant Dataset***<br>
+<img align=center src="./Plots/ant.png">
+
+***Camel Dataset***<br>
+<img align=center src="./Plots/camel.png">
+
+***Ivy Dataset***<br>
+<img align=center src="./Plots/ivy.png">
+
+***Jedit Dataset***<br>
+<img align=center src="./Plots/jedit.png">
+
+***Log4j Dataset***<br>
+<img align=center src="./Plots/log4j.png">
+
+***Lucene Dataset***<br>
+<img align=center src="./Plots/lucene.png">
+
+***Poi Dataset***<br>
+<img align=center src="./Plots/poi.png">
+
+***Synapse Dataset***<br>
+<img align=center src="./Plots/synapse.png">
+
+***Velocity Dataset***<br>
+<img align=center src="./Plots/velocity.png">
+
 # Discussion
 
 # Conclusion
