@@ -65,12 +65,17 @@ Initially, WHICH’s "*rules*" are just each range of each feature. Subsequently
 - This combination is then applied on the testing data to find the *defective* modules. Defective modules are ones that satisfy this combination.
 
 # Results
-| Dataset  | Random Forest | Decision Tree | Naive Bayesian | SVM | WHICH
-| ---------|:-------------:| -----:|------------- |:-------------:| -----:|
-| Ant      | right-aligned | $1600 ||||
-| Camel    | centered      |   $12 |
-| Ivy      | are neat      |    $1 |
-| Ant      | right-aligned | $1600 ||||
+| Dataset  | Random Forest | Decision Tree | Naive Bayesian | SVM    | WHICH
+| ---------|:-------------:| -------------:|--------------- |:------:|-------:|
+| ant      | 0.6315        | 0.438         | 0.5460         | 0.3801 | 0.2843 |
+| camel    | 0.4518        | 0.409         | 0.3656         | 0.4754 | 0.2225 |
+| ivy      | 0.3235        | 0.1176        | 0.3157         | 0.2105 | 0.145  |
+| jedit    | 0.0595        | 0.0330        | 0.0581         | 0.0389 | 0.0235 |
+| log4j    | 0.0938        | 0.9523        | 0.9649         | 0.9591 | 0.0875 |
+| lucene   | 0.6820        | 0.6615        | 0.8080         | 0.725  | 0.5503 |
+| poi      | 0.8215        | 0.7714        | 0.088          | 0.7215 | 0.8116 |
+| synapse  | 0.65          | 0.5961        | 0.6119         | 0.65   | 0.2711 |
+| velocity | 0.3953        | 0.3953        | 0.4469         | 0.3857 | 0.3088 |
 
 # Discussion
 
