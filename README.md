@@ -82,16 +82,16 @@ def xval(datas,
  ):
  for data in datas
     for _ in range(m): # m times repeat
-       data = shuffle(data)
-		for tests in chunks(data, len(data)/n): # data divided into 4 bins
-			train = minus( data,  tests)
-			god = aucPdPf(tests,  triggered= [ x for x in tests if defective(x) ] )
+    data = shuffle(data)
+	for tests in chunks(data, len(data)/n): # data divided into 4 bins
+		train = minus( data,  tests)
+		god = aucPdPf(tests,  triggered= [ x for x in tests if defective(x) ] )
 			for learner in learners
 				model = learn(learner, train) 
 				mortal = aucPdPf(tests,
-                triggered = [ x for x in tests
-                if satisfies(model,x) 
-                            ])
+                		triggered = [ x for x in tests
+                		if satisfies(model,x) 
+                        	])
 				print(data, learner, mortal / god)
 
 def aucPdPf(tests, triggered=[]):
@@ -100,7 +100,8 @@ def aucPdPf(tests, triggered=[]):
     auc = loc1 = bad1= 0
     # take all the triggered items, work up in ascending order
     for row in  sort(triggered, key=loc): # ascending order
-        bad1++
+        if triggered is actually bad:
+        	bad1++
         pd = bad1/bad0
         loc1 += row.loc
         ploc = loc1/loc0
