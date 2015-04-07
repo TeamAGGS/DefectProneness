@@ -65,6 +65,12 @@ Initially, WHICH’s "*rules*" are just each range of each feature. Subsequently
 - This combination is then applied on the testing data to find the *defective* modules. Defective modules are ones that satisfy this combination.
 
 # Results
+| Dataset  | Random Forest | Decision Tree | Naive Bayesian | SVM | WHICH
+| ---------|:-------------:| -----:|------------- |:-------------:| -----:|
+| Ant      | right-aligned | $1600 ||||
+| Camel    | centered      |   $12 |
+| Ivy      | are neat      |    $1 |
+| Ant      | right-aligned | $1600 ||||
 
 # Discussion
 
