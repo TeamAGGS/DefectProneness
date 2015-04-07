@@ -1,0 +1,5 @@
+ Random Forest:  0.65 
+Decision Tree:  0.596153846153846 
+Naive Bayesian:  0.611940298507463 
+SVM:  0.65 
+WHICH:  0.271186440677966

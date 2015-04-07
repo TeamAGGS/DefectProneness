@@ -1,0 +1,5 @@
+ Random Forest:  1 
+Decision Tree:  NaN 
+Naive Bayesian:  1 
+SVM:  1 
+WHICH:  0.995433789954338
