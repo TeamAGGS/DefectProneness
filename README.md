@@ -81,9 +81,9 @@ def xval(datas,
     learners=[which, nb, dt, rf, svm] # or whatever else you got
  ):
  for data in datas
-    for _ in range(m): # m times repeat
-    data = shuffle(data)
-	for tests in chunks(data, len(data)/n): # data divided into 4 bins
+	for _ in range(m): # m times repeat
+    	data = shuffle(data)
+		for tests in chunks(data, len(data)/n): # data divided into 4 bins
 		train = minus( data,  tests)
 		god = aucPdPf(tests,  triggered= [ x for x in tests if defective(x) ] )
 			for learner in learners
