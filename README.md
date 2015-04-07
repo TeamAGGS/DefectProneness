@@ -11,7 +11,7 @@
 - We used training data to generate and tune the model, and then tested the model on the testing data to prove our model works.
 - In data mining, area under the curve (AUC) of PD (proportion of bug detected) and LOC (Line of Code) is an important measurement. The larger the AUC, the better the model. 
 - According to Arisholm and Briand, if a data miner works, PD must be greater than LOC, which is mimnial curve (y=x). So, our goal is to make AUC of PD and LOC as large as possible.
-- We implemented an algorithm called "Which" (Milton-2008, Menzies-2008), and compared it performance with some standard learners like Decision-Tree, Random-Forest, Naive Bayesian and Random Forest.
+- We implemented an algorithm called "Which" (Milton-2008, Menzies-2008), and compared its performance with some standard learners like Decision-Tree, Random-Forest, Naive Bayesian and SVM.
 
 # Background
 
