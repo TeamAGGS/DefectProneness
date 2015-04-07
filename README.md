@@ -14,6 +14,7 @@
 - In data mining, area under the curve (AUC) of PD (proportion of bug detected) and LOC (Line of Code) is an important measurement. The larger the AUC, the better the model. 
 - According to Arisholm and Briand, if a data miner works, PD must be greater than LOC, which is mimnial curve (y=x).
 - So, our goal is to make AUC of PD and LOC as large as possible.
+- We implemented our own Which method to see if our own method is better than other standard methods like SVM, decision tree.
 
 # Background
 
