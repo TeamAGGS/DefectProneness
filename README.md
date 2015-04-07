@@ -3,24 +3,24 @@
  CSC-510 Software Engineering
  Project Report 1-b
   
-# Goals
-
-**What is data mining?**
+# What is data mining?
 - Data Mining is an analytic process designed to explore data (usually large amounts of data - typically business or market related - also known as "big data") in search of consistent patterns and/or systematic relationships between variables, and then to validate the findings by applying the detected patterns to new subsets of data.
 
-**Our goals for this data mining project**
+# Goals
 - The hypothesis laid out in the ['Theory of relative defect proneness'](http://link.springer.com.prox.lib.ncsu.edu/article/10.1007%2Fs10664-008-9080-x) proposing that smaller modules are more defect prone than larger modules in a software application interests us, we would like to use this as background to apply various methods and test them.
 - We used training data to generate and tune the model, and then tested the model on the testing data to prove our model works.
 - In data mining, area under the curve (AUC) of PD (proportion of bug detected) and LOC (Line of Code) is an important measurement. The larger the AUC, the better the model. 
-- According to Arisholm and Briand, if a data miner works, PD must be greater than LOC, which is mimnial curve (y=x).
-- So, our goal is to make AUC of PD and LOC as large as possible.
-- We implemented our own Which method to see if our own method is better than other standard methods like SVM, decision tree.
+- According to Arisholm and Briand, if a data miner works, PD must be greater than LOC, which is mimnial curve (y=x). So, our goal is to make AUC of PD and LOC as large as possible.
+- We implemented an algorithm called "Which" (Milton-2008, Menzies-2008), and compared it performance with some standard learners like Decision-Tree, Random-Forest, Naive Bayesian and Random Forest.
 
 # Background
 
 **Blind spots management**
 - Building software is expensive, so, it is very important to use the limited quality assurance budgets on the most defective part. Now, how to find these parts are the major concern. 
-In a complex software, the project artifacts that hasn't attracted the attention of QA activities are called blind spots. They can not be avoided due to the limited budget. Thus, "the standard practice should be augmented with a lightweight sampling policy that (a) explores the rest of the software and (b) raises an alert on parts of the software that appear problematic." 
+In a complex software, the project artifacts that hasn't attracted the attention of QA activities are called blind spots. They can not be avoided due to the limited budget. Thus, "the standard practice should be augmented with a lightweight sampling policy that (a) explores the rest of the software and (b) raises an alert on parts of the software that appear problematic."
+
+**Area Under Curve**
+- Standard classifiers like SVM, Decision Tree etc optimizes the recall value which gives a measure of _out of total predicted as positive, how many are actually positive_. According to the hypothesis, we need to account for lines-of-code in the performance of these standard learners. We assume that a new learner which takes into consideration the "loc" value, will give us a higher "auc" value, and hence a better learner. Since we cannot change the default implementation of the standard learners to incorporate loc in their evaluation criteria, we assume that their performance will be no better than "which". More detail about "which" algorithm follows in the next section.
 
 **Lightweight sampling**
 - To build a lightweight sampling policy, we adopted data mining over static code features method. The data sets we used usually contains static code features like wmc, dit, noc, cbo, loc, bug and so on. Originally, the bug column stands for the number of bugs found in this part, we first converted this column to boolean values based on the number of bugs. We then used statistical combinations of other feaures on the testing sets to predict for the bug boolean value. 
