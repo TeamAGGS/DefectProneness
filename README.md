@@ -78,6 +78,7 @@ The following results are based on the recall values computed upon testing the d
 | poi      | 0.8215        | 0.7714        | 0.088          | 0.7215 | 0.8116 |
 | synapse  | 0.65          | 0.5961        | 0.6119         | 0.65   | 0.2711 |
 | velocity | 0.3953        | 0.3953        | 0.4469         | 0.3857 | 0.3088 |
+| xalan    | 1             |               | 1              | 1      | 0.9954 |
 
 # Discussion
 
