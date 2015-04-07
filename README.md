@@ -85,6 +85,8 @@ The following results are based on the recall values computed upon testing the d
 Given limited QA resources, one way to substantially increase the quality of any system or software is to utilize these resources to test the most buggy modules. One of ours was to compare five different data mining classifiers (explained in the “Models” section) to prove/disprove if smaller modules are infact the most defective ones. By using ‘loc’ as the feature to rank these modules for each of the datasets, we generated graphs as shown in the ‘Discussion’ section and these prove that the smaller modules were in fact less buggy/defective compared to the larger modules and that this generalization would not hold for types of systems/datasets.
 
 # Future Work
+- The above experiment was carried out using only 9 datasets, to further validate the hypothesis laid out in the paper the analysis could be carried out other datasets of various sizes and features.
+- Also, to further investigate the analysis, WHICH2 or WHICH4 could be used as opposed to WHICH5 used in this study.
 
 # References
 - http://www.statsoft.com/Textbook/Data-Mining-Techniques
