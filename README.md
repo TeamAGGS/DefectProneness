@@ -55,7 +55,7 @@ We used 5 data mining methods to generate models and compared them according on 
 - For our datasets the number of feature ranges was 21.
    * *Step 1:* Data from continuous features then needs to be discretized into “N” equal width bins. For the purpose of this experiment, the number of bins chosen was '5'
    * *Step 2:* WHICH maintains a stack of feature combinations, sorted by a customizable search bias B1. For this study, WHICH used the AUC(effort, pd). 
-      <img align=center src="./pic/WHICH.JPG">
+      <img align=center src="./pic/WHICH.PNG">
 Initially, WHICH’s "*rules*" are just each range of each feature. Subsequently, they can grow to two or more features.
    * *Step 3:* Two combinations are picked at random, favoring those combinations that are ranked highly by B1.
    * *Step 4:* The two *rules* are themselves combined, scored based on the , then sorted into the stacked population of prior combinations or rules.
@@ -65,12 +65,28 @@ Initially, WHICH’s "*rules*" are just each range of each feature. Subsequently
 - This combination is then applied on the testing data to find the *defective* modules. Defective modules are ones that satisfy this combination.
 
 # Results
+The following results are based on the recall values computed upon testing the datasets for each of the five models.
+
+| Dataset  | Random Forest | Decision Tree | Naive Bayesian | SVM    | WHICH
+| ---------|:-------------:| -------------:|--------------- |:------:|-------:|
+| ant      | 0.6315        | 0.438         | 0.5460         | 0.3801 | 0.2843 |
+| camel    | 0.4518        | 0.409         | 0.3656         | 0.4754 | 0.2225 |
+| ivy      | 0.3235        | 0.1176        | 0.3157         | 0.2105 | 0.145  |
+| jedit    | 0.0595        | 0.0330        | 0.0581         | 0.0389 | 0.0235 |
+| log4j    | 0.0938        | 0.9523        | 0.9649         | 0.9591 | 0.0875 |
+| lucene   | 0.6820        | 0.6615        | 0.8080         | 0.725  | 0.5503 |
+| poi      | 0.8215        | 0.7714        | 0.088          | 0.7215 | 0.8116 |
+| synapse  | 0.65          | 0.5961        | 0.6119         | 0.65   | 0.2711 |
+| velocity | 0.3953        | 0.3953        | 0.4469         | 0.3857 | 0.3088 |
 
 # Discussion
 
 # Conclusion
+Given limited QA resources, one way to substantially increase the quality of any system or software is to utilize these resources to test the most buggy modules. One of ours was to compare five different data mining classifiers (explained in the “Models” section) to prove/disprove if smaller modules are infact the most defective ones. By using ‘loc’ as the feature to rank these modules for each of the datasets, we generated graphs as shown in the ‘Discussion’ section and these prove that the smaller modules were in fact less buggy/defective compared to the larger modules and that this generalization would not hold for types of systems/datasets.
 
 # Future Work
+- The above experiment was carried out using only 9 datasets, to further validate the hypothesis laid out in the paper the analysis could be carried out other datasets of various sizes and features.
+- Also, to further investigate the analysis, WHICH2 or WHICH4 could be used as opposed to WHICH5 used in this study.
 
 # References
 - http://www.statsoft.com/Textbook/Data-Mining-Techniques
