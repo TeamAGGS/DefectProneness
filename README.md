@@ -72,6 +72,69 @@ Initially, WHICH’s "*rules*" are just each range of each feature. Subsequently
 - After the 5 iterations, WHICH returns the highest ranked combination of features
 - This combination is then applied on the testing data to find the *defective* modules. Defective modules are ones that satisfy this combination.
 
+# Pseudo Code
+
+```python
+def xval(datas,
+    m=5,
+    n=5,
+    learners=[which, nb, dt, rf, svm] # or whatever else you got
+ ):
+ for data in datas
+    for _ in range(m): # m times repeat
+       data = shuffle(data)
+		for tests in chunks(data, len(data)/n): # data divided into 4 bins
+			train = minus( data,  tests)
+			god = aucPdPf(tests,  triggered= [ x for x in tests if defective(x) ] )
+			for learner in learners
+				model = learn(learner, train) 
+				mortal = aucPdPf(tests,
+                triggered = [ x for x in tests
+                if satisfies(model,x) 
+                            ])
+				print(data, learner, mortal / god)
+
+def aucPdPf(tests, triggered=[]):
+    loc0 = sum(map(loc,tests))
+    bad0 = length(tests)
+    auc = loc1 = bad1= 0
+    # take all the triggered items, work up in ascending order
+    for row in  sort(triggered, key=loc): # ascending order
+        bad1++
+        pd = bad1/bad0
+        loc1 += row.loc
+        ploc = loc1/loc0
+        score = pd/ploc
+        auc += score
+        # after we run out of triggered, go with a straight line (no pd increase)
+        rest = minus( tests, triggered )
+        for row in  sort(rest, key=loc): # ascending order
+           # note: pd no longer updates
+            loc1 += row.loc
+            ploc = loc1/loc0
+            score = pd/ploc
+            auc += score
+            return auc
+
+def shuffle(lst):
+    random.shuffle(lst)
+    return lst
+
+def chunks(lst, n):
+     #Yield successive n-sized chunks from l.
+     for i in xrange(0, len(lst), round(n)):
+         yield lst[i:i+n]
+
+def loc(lst):
+    return lst[-2] # or wherever you put your loc
+
+def defective(lst):
+    klass = lst[-1] # or wherever you put it
+    return klass == 'y' # or however you mark defective
+
+def minus(lst1,lst2):
+   return list (set(lst1) - set(lst2) )
+```
 # Results
 
 **Training**
