@@ -42,11 +42,13 @@ We used 5 data mining methods to generate models and compared them according on 
 
 **Random Forest**
 - Random Forests grows many classification trees. To classify a new object from an input vector, put the input vector down each of the trees in the forest. Each tree gives a classification, and we say the tree "votes" for that class. The forest chooses the classification having the most votes (over all the trees in the forest). Random forests correct for decision trees' habit of overfitting to their training set. Overfitting generally occurs when the model that is built from training data is over complex with many features.
-<img align=center src="./pic/randomforest.JPG">
+
+<img align=center src="./pic/randomforest.jpg">
 
 **SVM**
 - In machine learning, support vector machines (SVMs, also support vector networks) are supervised learning models with associated learning algorithms that analyze data and recognize patterns, used for classification and regression analysis. Given a set of training examples, each marked as belonging to one of two categories, an SVM training algorithm builds a model that assigns new examples into one category or the other, making it a non-probabilistic binary linear classifier.
-<img align=center src="./pic/SVM.png">
+
+<img align=center src="./pic/SVM.PNG">
 
 - An SVM model is a representation of the examples as points in space, mapped so that the examples of the separate categories are divided by a clear gap that is as wide as possible. New examples are then mapped into that same space and predicted to belong to a category based on which side of the gap they fall on.
  
