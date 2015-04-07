@@ -65,6 +65,8 @@ Initially, WHICH’s "*rules*" are just each range of each feature. Subsequently
 - This combination is then applied on the testing data to find the *defective* modules. Defective modules are ones that satisfy this combination.
 
 # Results
+The following results are based on the recall values computed upon testing the datasets for each of the five models.
+
 | Dataset  | Random Forest | Decision Tree | Naive Bayesian | SVM    | WHICH
 | ---------|:-------------:| -------------:|--------------- |:------:|-------:|
 | ant      | 0.6315        | 0.438         | 0.5460         | 0.3801 | 0.2843 |
