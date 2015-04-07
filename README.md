@@ -56,6 +56,10 @@ We used 5 data mining methods to generate models and compared them according on 
    * *Step 1:* Data from continuous features then needs to be discretized into “N” equal width bins. For the purpose of this experiment, the number of bins chosen was '5'
    * *Step 2:* WHICH maintains a stack of feature combinations, sorted by a customizable search bias B1. For this study, WHICH used the AUC(effort, pd). 
       <img align=center src="./pic/WHICH.PNG">
+          where, 
+            α = 1, β = 1000, γ = 0
+      * The (PD,PF, effort) values are normalized to fall between zero and one. 
+      * The higher the search bias B1, the better.<br>
 Initially, WHICH’s "*rules*" are just each range of each feature. Subsequently, they can grow to two or more features.
    * *Step 3:* Two combinations are picked at random, favoring those combinations that are ranked highly by B1.
    * *Step 4:* The two *rules* are themselves combined, scored based on the , then sorted into the stacked population of prior combinations or rules.
