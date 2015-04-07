@@ -49,6 +49,19 @@ We used 5 data mining methods to generate models and compared them according on 
 - An SVM model is a representation of the examples as points in space, mapped so that the examples of the separate categories are divided by a clear gap that is as wide as possible. New examples are then mapped into that same space and predicted to belong to a category based on which side of the gap they fall on.
  
 **Which**
+- The WHICH algorithm implemented was a customised version of the original implementation by Milton to come up with a method which maximises the AUC for Effort and PD.
+- WHICH fundamentally work with a concept of '*rules*'
+- These *rules* are nothing but combinations of possible feature ranges.
+- For our datasets the number of feature ranges was 21.
+   * *Step 1:* Data from continuous features then needs to be discretized into “N” equal width bins. For the purpose of this experiment, the number of bins chosen was '5'
+   * *Step 2:* WHICH maintains a stack of feature combinations, sorted by a customizable search bias B1 (Add equation). For this study, WHICH used the AUC(effort, pd). 
+Initially, WHICH’s "*rules*" are just each range of each feature. Subsequently, they can grow to two or more features.
+   * *Step 3:* Two combinations are picked at random, favoring those combinations that are ranked highly by B1.
+   * *Step 4:* The two *rules* are themselves combined, scored based on the , then sorted into the stacked population of prior combinations or rules.
+   * *Step 5:* Go to step 4. 
+- For this study, 5 iterations were used as the looping termination criteria with 5-fold cross validation
+- After the 5 iterations, WHICH returns the highest ranked combination of features
+- This combination is then applied on the testing data to find the *defective* modules. Defective modules are ones that satisfy this combination.
 
 # Results
 
