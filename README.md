@@ -59,13 +59,14 @@ We used 5 data mining methods to generate models and compared them according on 
 # Future Work
 
 # References
+- http://www.statsoft.com/Textbook/Data-Mining-Techniques
+- Menzies, Tim, et al. "Defect prediction from static code features: current results, limitations, new approaches."   Automated Software Engineering 17.4 (2010): 375-407.
+- Koru, A. Günes, et al. "Theory of relative defect proneness." Empirical Software Engineering 13.5 (2008): 473-498.
+- http://en.wikipedia.org/wiki/Naive_Bayes_classifier
+- http://www.saedsayad.com/decision_tree.htm
+- http://en.wikipedia.org/wiki/Decision_tree_learning
+- https://www.stat.berkeley.edu/~breiman/RandomForests/cc_home.htm#intro
+- http://en.wikipedia.org/wiki/Support_vector_machine
 
 ## Data source:
 http://openscience.us/repo/defect/ck/
-http://www.statsoft.com/Textbook/Data-Mining-Techniques
-Menzies, Tim, et al. "Defect prediction from static code features: current results, limitations, new approaches." Automated Software Engineering 17.4 (2010): 375-407.
-Koru, A. Günes, et al. "Theory of relative defect proneness." Empirical Software Engineering 13.5 (2008): 473-498.
-http://en.wikipedia.org/wiki/Naive_Bayes_classifier
-http://www.saedsayad.com/decision_tree.htm
-https://www.stat.berkeley.edu/~breiman/RandomForests/cc_home.htm#intro
-http://en.wikipedia.org/wiki/Support_vector_machine
