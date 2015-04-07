@@ -22,6 +22,9 @@ aucPdPf <- function(tests, triggered) {
     score = pd/ploc
     auc = auc + score
   }
-  return(auc)
-  
+  if(is.infinite(auc) | is.nan(auc)) {
+    return (0)
+  } else {
+    return(auc)
+  }
 }

@@ -24,11 +24,12 @@ DecisionTree <- function(train, test, type) {
       
       if(length(triggers) > 0) {
         auc <- aucPdPf(test, test[triggers,])
+        if(auc > bestauc) {
+          bestauc <- auc 
+          bestmodel <- tree
+        } 
       } 
-      if(auc > bestauc) {
-        bestauc <- auc 
-        bestmodel <- tree
-      } 
+      
     }
     return(list(bestauc,bestmodel))
   }
