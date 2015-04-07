@@ -116,25 +116,6 @@ def aucPdPf(tests, triggered=[]):
             score = pd/ploc
             auc += score
             return auc
-
-def shuffle(lst):
-    random.shuffle(lst)
-    return lst
-
-def chunks(lst, n):
-     #Yield successive n-sized chunks from l.
-     for i in xrange(0, len(lst), round(n)):
-         yield lst[i:i+n]
-
-def loc(lst):
-    return lst[-2] # or wherever you put your loc
-
-def defective(lst):
-    klass = lst[-1] # or wherever you put it
-    return klass == 'y' # or however you mark defective
-
-def minus(lst1,lst2):
-   return list (set(lst1) - set(lst2) )
 ```
 # Results
 
