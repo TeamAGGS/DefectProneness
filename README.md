@@ -117,6 +117,18 @@ def aucPdPf(tests, triggered=[]):
             auc += score
             return auc
 ```
+
+##Training and Testing data##
+
+Our dataset consists of data from 34 software repositories. We hand picked 10 out of them for this project. Training six different models for 34 datasets proved too much. For each of the software repositories, we have data for different versions of it. Below is an example of how we converted the original data to our training and testing data.
+
+###Software = Ant###
+- Versions = 1.3, 1.4, 1.5, 1.6, 1.7
+- Training = 1.3, 1.4, 1.5, 1.6
+- Testing = 1.7
+
+We followed the same procedure for all the software repositories by leaving out the last version for testing and using all the earlier versions for training.
+
 # Results
 
 **Training**
