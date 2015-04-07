@@ -71,6 +71,26 @@ Initially, WHICH’s "*rules*" are just each range of each feature. Subsequently
 - This combination is then applied on the testing data to find the *defective* modules. Defective modules are ones that satisfy this combination.
 
 # Results
+
+**Training**
+
+The following are the results obtained after training the datasets being used sorted by their performance
+
+| Dataset  | Random Forest | Decision Tree | SVM    | WHICH  | Naive Bayesian
+| ---------|:-------------:| -------------:|--------|:------:|-------:|
+| ant      | 0.8196        | 0.6671        | 0.5139 | 0.4186 | 0.2012 |
+| camel    | 0.8671        | 0.6292        | 0.4281 | 0.3804 | 0.2003 |
+| ivy      | 0.7126        | 0.6504        | 0.4971 | 0.4248 | 0.2303 |
+| jedit    | 0.8547        | 0.6133        | 0.4380 | 0.4025 | 0.2096 |
+| log4j    | 0.8375        | 0.6603        | 0.4351 | 0.3840 | 0.1966 |
+| lucene   | 0.8451        | 0.6281        | 0.4643 | 0.3840 | 0.2318 |
+| poi      | 0.8080        | 0.6253        | 0.4012 | 0.3933 | 0.1834 |
+| synapse  | 0.8460        | 0.6251        | 0.4925 | 0.4100 | 0.2132 |
+| velocity | 0.8027        | 0.5994        | 0.4585 | 0.3780 | 0.2147 |
+| xalan    | 0.8022        | 0.6259        | 0.4375 | 0.3542 | 0.2131 |
+
+**Testing**
+
 The following results are based on the recall values computed upon testing the datasets for each of the five models.
 
 | Dataset  | Random Forest | Decision Tree | Naive Bayesian | SVM    | WHICH
