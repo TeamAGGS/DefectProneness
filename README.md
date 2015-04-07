@@ -38,10 +38,10 @@ We used 5 methods to generate models and compared them according on the result w
 **Random Forest**
 - Random Forests grows many classification trees. To classify a new object from an input vector, put the input vector down each of the trees in the forest. Each tree gives a classification, and we say the tree "votes" for that class. The forest chooses the classification having the most votes (over all the trees in the forest).
 
-**Which**
-
 **SVM**
 - In machine learning, support vector machines (SVMs, also support vector networks) are supervised learning models with associated learning algorithms that analyze data and recognize patterns, used for classification and regression analysis. Given a set of training examples, each marked as belonging to one of two categories, an SVM training algorithm builds a model that assigns new examples into one category or the other, making it a non-probabilistic binary linear classifier. An SVM model is a representation of the examples as points in space, mapped so that the examples of the separate categories are divided by a clear gap that is as wide as possible. New examples are then mapped into that same space and predicted to belong to a category based on which side of the gap they fall on.
+ 
+**Which**
 
 # Results
 
@@ -57,7 +57,7 @@ We used 5 methods to generate models and compared them according on the result w
 http://openscience.us/repo/defect/ck/
 http://www.statsoft.com/Textbook/Data-Mining-Techniques
 Menzies, Tim, et al. "Defect prediction from static code features: current results, limitations, new approaches." Automated Software Engineering 17.4 (2010): 375-407.
-Koru, A. Günes, et al. "Theory of relative defect proneness." Empirical Software Engineering 13.5 (2008): 473-498.
+Koru, A. GÃ¼nes, et al. "Theory of relative defect proneness." Empirical Software Engineering 13.5 (2008): 473-498.
 http://en.wikipedia.org/wiki/Naive_Bayes_classifier
 http://www.saedsayad.com/decision_tree.htm
 https://www.stat.berkeley.edu/~breiman/RandomForests/cc_home.htm#intro
