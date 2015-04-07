@@ -69,6 +69,7 @@ Initially, WHICH’s "*rules*" are just each range of each feature. Subsequently
 # Discussion
 
 # Conclusion
+Given limited QA resources, one way to substantially increase the quality of any system or software is to utilize these resources to test the most buggy modules. One of ours was to compare five different data mining classifiers (explained in the “Models” section) to prove/disprove if smaller modules are infact the most defective ones. By using ‘loc’ as the feature to rank these modules for each of the datasets, we generated graphs as shown in the ‘Discussion’ section and these prove that the smaller modules were in fact less buggy/defective compared to the larger modules and that this generalization would not hold for types of systems/datasets.
 
 # Future Work
 
