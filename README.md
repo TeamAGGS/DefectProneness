@@ -54,9 +54,9 @@ We used 5 data mining methods to generate models and compared them according on 
 - These *rules* are nothing but combinations of possible feature ranges.
 - For our datasets the number of feature ranges was 21.
    * *Step 1:* Data from continuous features then needs to be discretized into “N” equal width bins. For the purpose of this experiment, the number of bins chosen was '5'
-   * *Step 2:* WHICH maintains a stack of feature combinations, sorted by a customizable search bias B1. For this study, WHICH used the AUC(effort, pd). 
+   * *Step 2:* WHICH maintains a stack of feature combinations, sorted by a customizable search bias B1. For this study, WHICH used the AUC(effort, pd). <br>
       <img align=center src="./pic/WHICH.PNG">
-          where, 
+      where, 
             α = 1, β = 1000, γ = 0
       * The (PD,PF, effort) values are normalized to fall between zero and one. 
       * The higher the search bias B1, the better.<br>
