@@ -143,6 +143,16 @@ We worked with the above mentioned datasets and the following are the graph plot
 
 # Discussion
 
+**Hypothesis-1: Smaller modules are buggy**
+If this is true, we should see higher auc values for our classifiers (at least the best one). We don't see standard classifiers performing consistently better than y=x line.
+
+**Hypothesis-2: WHICH is better than standard learners**
+If this is true, we should see higher auc values for WHICH in most of the datasets. We don't see that happening in any ofthe datasets. It might be an issue inside our code or our logic. It's too early to refute this hypothesis. Like we discussed earlier, it looks more promising in that it uses "pd" and "pf" to optimize rules, and this is missing in standard learners.
+
+**Few more observations**
+- WHICH could generate a very simplistic rule containing only 1 attribute. Our code somehow couldn't generate composite rules containing more than 1 attribute. This lead to a very poor model which generated too many false positives. Hence, we see curve for WHICH reaching y-values more than 100 in graphs shown earlier.
+- There were a few datasets that had modules containing loc=0 (lines of code = 0). This lead to a few problems in auc calculation as it was leading to divide-by-zero exceptions. We assumed auc value to be zero in these situations.
+
 # Conclusion
 Given limited QA resources, one way to substantially increase the quality of any system or software is to utilize these resources to test the most buggy modules. One of ours was to compare five different data mining classifiers (explained in the “Models” section) to prove/disprove if smaller modules are infact the most defective ones. By using ‘loc’ as the feature to rank these modules for each of the datasets, we generated graphs as shown in the ‘Discussion’ section and these prove that the smaller modules were in fact less buggy/defective compared to the larger modules and that this generalization would not hold for types of systems/datasets. 
 
